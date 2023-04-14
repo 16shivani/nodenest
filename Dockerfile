@@ -1,22 +1,25 @@
-FROM node:14-alpine
-# Set the working directory to /app
+FROM node:12
 
-WORKDIR /app
-# Copy package.json and package-lock.json to the container
+ 
+
+WORKDIR /usr/src/app
+
+ 
 
 COPY package*.json ./
-# Install app dependencies
 
-RUN npm install
-# Copy the rest of the application code to the container
+ 
+
+RUN npm install && npm cache clean --force
 
 COPY . .
-# Build the application
 
 RUN npm run build
-# Expose the port that the application will run on
+
+COPY . .
+
+ 
 
 EXPOSE 3000
-# Start the application
 
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "npm", "run","start" ]
